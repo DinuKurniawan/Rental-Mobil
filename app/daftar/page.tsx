@@ -160,7 +160,7 @@ export default function RegisterPage() {
       <div className="relative hidden w-0 flex-1 lg:block">
         <Image
           className="absolute inset-0 h-full w-full object-cover"
-          src="/register_background_car_1776090297084.png"
+          src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&q=80&w=2000"
           alt="Car Interior"
           fill
           priority

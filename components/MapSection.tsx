@@ -60,13 +60,15 @@ export default function MapSection() {
               </div>
             </div>
 
-            <button 
-              className="group flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.2em] pt-4"
-              suppressHydrationWarning
+            <a 
+              href="https://www.google.com/maps/search/?api=1&query=Jl.+Sudirman+No.+123,+Jakarta+Pusat"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.2em] pt-4 w-fit"
             >
               <span className="pb-1 border-b-2 border-foreground transition-all group-hover:pr-4">Buka di Google Maps</span>
               <Navigation className="h-3.5 w-3.5 rotate-45" />
-            </button>
+            </a>
           </div>
 
           {/* Map Side */}

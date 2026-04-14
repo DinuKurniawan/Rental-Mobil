@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { Star } from "lucide-react";
+import Autoplay from "embla-carousel-autoplay";
 import { 
   Carousel, 
   CarouselContent, 
@@ -38,6 +39,11 @@ export default function Testimonials({ reviews = [] }: { reviews?: Review[] }) {
               align: "start",
               loop: true,
             }}
+            plugins={[
+              Autoplay({
+                delay: 4000,
+              }),
+            ]}
             className="w-full"
           >
             <CarouselContent className="-ml-8">

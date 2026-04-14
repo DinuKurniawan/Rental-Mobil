@@ -189,7 +189,7 @@ export default function LoginPage() {
       <div className="relative hidden w-0 flex-1 lg:block">
         <Image
           className="absolute inset-0 h-full w-full object-cover"
-          src="/login_background_car_1776090257807.png"
+          src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&q=80&w=2000"
           alt="Luxury Car"
           fill
           priority

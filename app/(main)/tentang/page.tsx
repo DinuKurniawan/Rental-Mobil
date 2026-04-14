@@ -91,7 +91,7 @@ export default function AboutPage() {
             <div className="relative aspect-square">
                <div className="absolute inset-0 rounded-3xl overflow-hidden shadow-2xl">
                  <Image
-                   src="/about_team_office_1776090220315.png"
+                   src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80"
                    alt="DriveKita Team"
                    fill
                    className="object-cover"

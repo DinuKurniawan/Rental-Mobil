@@ -14,7 +14,7 @@ import { CarWithCategory } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
 
 export default function CarCard({ car }: { car: CarWithCategory }) {
-  const carImage = car.images && car.images[0] ? car.images[0].url : "/images/placeholder-car.png";
+  const carImage = car.images && car.images[0] ? car.images[0].url : "/images/hero_premium.png";
   
   return (
     <Card className="group overflow-hidden border border-border bg-background transition-all duration-500 hover:border-foreground/20 rounded-2xl flex flex-col">
