@@ -1,0 +1,176 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+enum Role {
+  ADMIN
+  CUSTOMER
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  password      String?
+  role          Role      @default(CUSTOMER)
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  bookings      Booking[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model Account {
+  id                 String  @id @default(cuid())
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?
+  access_token       String?
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?
+  session_state      String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Category {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  slug        String   @unique
+  description String?
+  cars        Car[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Car {
+  id            String   @id @default(cuid())
+  name          String
+  slug          String   @unique
+  brand         String?
+  description   String?  @db.Text
+  images        CarImage[]
+  pricePerDay   Float
+  year          Int?
+  transmission  String
+  capacity      Int
+  fuel          String
+  rating        Float    @default(0)
+  features      String?  @db.Text
+  categoryId    String
+  category      Category @relation(fields: [categoryId], references: [id])
+  status        CarStatus @default(AVAILABLE)
+  bookings      Booking[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model CarImage {
+  id    String @id @default(cuid())
+  url   String
+  carId String
+  car   Car    @relation(fields: [carId], references: [id], onDelete: Cascade)
+}
+
+enum CarStatus {
+  AVAILABLE
+  RENTED
+  MAINTENANCE
+}
+
+model Booking {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  carId       String
+  car         Car      @relation(fields: [carId], references: [id])
+  startDate   DateTime
+  endDate     DateTime
+  totalAmount Float
+  status      BookingStatus @default(PENDING)
+  payment     Payment?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+}
+
+model Payment {
+  id            String   @id @default(cuid())
+  bookingId     String   @unique
+  booking       Booking  @relation(fields: [bookingId], references: [id])
+  amount        Float
+  status        String   // e.g., "pending", "success", "failed"
+  method        String?
+  orderId       String   @unique // Midtrans Order ID
+  transactionId String?  @unique // Midtrans Transaction ID
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  name      String
+  role      String?
+  content   String   @db.Text
+  rating    Int
+  avatar    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model PaymentMethod {
+  id            String   @id @default(cuid())
+  name          String
+  type          String   // e.g. "BANK_TRANSFER", "QRIS"
+  accountNumber String?
+  accountName   String?
+  image         String?
+  description   String?  @db.Text
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Voucher {
+  id            String      @id @default(cuid())
+  code          String      @unique
+  type          VoucherType @default(FIXED)
+  value         Float       // Percentage or fixed amount
+  usageLimit    Int         @default(0) // 0 for unlimited
+  usedCount     Int         @default(0)
+  expiryDate    DateTime?
+  isActive      Boolean     @default(true)
+  description   String?     @db.Text
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}
+
+enum VoucherType {
+  PERCENTAGE
+  FIXED
+}
