@@ -25,11 +25,18 @@ const voucherSchema = z.object({
   type: z.enum(["PERCENTAGE", "FIXED"]),
   value: z.coerce.number().min(1, "Nilai minimal 1"),
   usageLimit: z.coerce.number().min(0, "Minimal 0 (unlimited)"),
-  expiryDate: z.string().optional().nullable(),
-  description: z.string().optional(),
+  expiryDate: z.string().optional().nullable().or(z.literal("")),
+  description: z.string().optional().nullable().or(z.literal("")),
 });
 
-type VoucherFormValues = z.infer<typeof voucherSchema>;
+type VoucherFormValues = {
+  code: string;
+  type: "PERCENTAGE" | "FIXED";
+  value: number;
+  usageLimit: number;
+  expiryDate?: string | null;
+  description?: string | null;
+};
 
 interface VoucherDialogProps {
   voucher?: any;
@@ -41,7 +48,7 @@ export default function VoucherDialog({ voucher, trigger, onSuccess }: VoucherDi
   const [open, setOpen] = React.useState(false);
   const isEditing = !!voucher;
 
-  const { register, handleSubmit, reset, setValue, watch, formState: { errors, isSubmitting } } = useForm<VoucherFormValues>({
+  const { register, handleSubmit, reset, setValue, watch, formState: { errors, isSubmitting } } = useForm({
     resolver: zodResolver(voucherSchema),
     defaultValues: {
       code: voucher?.code || "",
@@ -53,9 +60,9 @@ export default function VoucherDialog({ voucher, trigger, onSuccess }: VoucherDi
     },
   });
 
-  const type = watch("type");
+  const type = watch("type") as "PERCENTAGE" | "FIXED";
 
-  const onSubmit = async (data: VoucherFormValues) => {
+  const onSubmit = async (data: any) => {
     try {
       const formData = new FormData();
       Object.entries(data).forEach(([key, value]) => {
@@ -82,7 +89,7 @@ export default function VoucherDialog({ voucher, trigger, onSuccess }: VoucherDi
 
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
-      <Dialog.Trigger render={trigger || <Button>Tambah Voucher</Button>} />
+      <Dialog.Trigger render={trigger ? (trigger as React.ReactElement) : <Button>Tambah Voucher</Button>} />
       <Dialog.Portal>
         <Dialog.Backdrop className="fixed inset-0 z-50 bg-black/10 backdrop-blur-xs animate-in fade-in duration-300" />
         <Dialog.Popup className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-lg bg-background border border-border p-8 rounded-[32px] shadow-2xl z-50 animate-in fade-in zoom-in-95 duration-300 overflow-y-auto max-h-[90vh]">

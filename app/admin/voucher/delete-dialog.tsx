@@ -32,7 +32,7 @@ export default function DeleteDialog({ id, name, trigger }: DeleteDialogProps) {
 
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
-      <Dialog.Trigger render={trigger || <Button variant="destructive">Hapus</Button>} />
+      <Dialog.Trigger render={trigger ? (trigger as React.ReactElement) : <Button variant="destructive">Hapus</Button>} />
       <Dialog.Portal>
         <Dialog.Backdrop className="fixed inset-0 z-50 bg-black/10 backdrop-blur-xs animate-in fade-in duration-300" />
         <Dialog.Popup className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md bg-background border border-border p-8 rounded-[32px] shadow-2xl z-50 animate-in fade-in zoom-in-95 duration-300">

@@ -195,6 +195,12 @@ export default function BookingFlow() {
 
         const data = await response.json();
 
+        if (!response.ok) {
+          console.error("Tokenizer Error:", data);
+          toast.error(`Pembayaran Gagal: ${data.details || "Gagal membuat transaksi"}`);
+          return;
+        }
+
         if (data.token) {
           window.snap.pay(data.token, {
             onSuccess: (result: any) => {

@@ -18,7 +18,7 @@ export default async function CarPage() {
   const [cars, categories] = await Promise.all([
     prisma.car.findMany({
       orderBy: { createdAt: "desc" },
-      include: { category: true },
+      include: { category: true, images: true },
     }),
     prisma.category.findMany(),
   ]);

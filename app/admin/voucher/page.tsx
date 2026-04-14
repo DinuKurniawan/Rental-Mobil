@@ -129,11 +129,11 @@ export default async function VoucherAdminPage() {
                         </td>
                         <td className="p-6 text-right">
                           <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
+                            <DropdownMenuTrigger render={
                               <Button variant="ghost" size="icon" className="h-10 w-10 rounded-xl hover:bg-muted">
                                 <MoreVertical className="h-5 w-5" />
                               </Button>
-                            </DropdownMenuTrigger>
+                            } />
                             <DropdownMenuContent align="end" className="w-48 p-2 rounded-2xl border-border">
                               <VoucherDialog 
                                 voucher={voucher}

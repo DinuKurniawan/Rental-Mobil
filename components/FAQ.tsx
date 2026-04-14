@@ -42,7 +42,7 @@ export default function FAQ() {
         </div>
 
         <div className="max-w-4xl">
-          <Accordion type="single" className="w-full space-y-0 divide-y divide-border border-y border-border">
+          <Accordion className="w-full space-y-0 divide-y divide-border border-y border-border">
             {faqs.map((faq, index) => (
               <AccordionItem key={index} value={`item-${index}`} className="border-none py-2 px-0">
                 <AccordionTrigger className="text-left font-black uppercase tracking-tighter text-xl py-6 hover:no-underline hover:opacity-50 transition-all">

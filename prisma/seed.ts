@@ -1,23 +1,11 @@
 require("dotenv").config();
 const { PrismaClient } = require("@prisma/client");
-const { PrismaMariaDb } = require("@prisma/adapter-mariadb");
 const bcrypt = require("bcryptjs");
 
+const prisma = new PrismaClient();
+
 async function main() {
-  const databaseUrl = process.env.DATABASE_URL || "mysql://root@127.0.0.1:3306/drivekita";
-  const url = new URL(databaseUrl);
-
-  const adapter = new PrismaMariaDb({
-    host: url.hostname,
-    port: parseInt(url.port) || 3306,
-    user: url.username,
-    password: url.password,
-    database: url.pathname.substring(1),
-  });
-
-  const prisma = new PrismaClient({ adapter });
-
-  console.log("Cleaning and seeding database...");
+  console.log("Cleaning and seeding Supabase database...");
 
   // Delete existing data in correct order
   await prisma.review.deleteMany({});
