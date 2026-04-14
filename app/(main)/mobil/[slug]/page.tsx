@@ -101,7 +101,7 @@ export default async function CarDetailPage({ params }: Props) {
             <section className="bg-white dark:bg-slate-900 p-8 rounded-3xl border border-slate-100 dark:border-slate-800">
               <h2 className="text-2xl font-bold mb-4">Tentang Mobil</h2>
               <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-lg italic">
-                "{car.description}"
+                &quot;{car.description}&quot;
               </p>
               <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
                 {car.parsedFeatures.map((feature, index) => (

@@ -100,7 +100,7 @@ export default function AboutPage() {
                </div>
                {/* Decorative floating card */}
                <div className="absolute -bottom-6 -left-6 bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-xl max-w-[200px] border border-slate-100 dark:border-slate-700 hidden md:block">
-                 <p className="text-sm font-semibold italic">"Memberikan pelayanan terbaik adalah DNA kami."</p>
+                 <p className="text-sm font-semibold italic">&quot;Memberikan pelayanan terbaik adalah DNA kami.&quot;</p>
                  <p className="text-xs text-muted-foreground mt-2">— Founder DriveKita</p>
                </div>
             </div>

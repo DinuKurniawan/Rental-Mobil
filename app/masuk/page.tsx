@@ -197,7 +197,7 @@ export default function LoginPage() {
         <div className="absolute inset-0 bg-linear-to-t from-primary/80 via-transparent to-transparent pointer-events-none" />
         <div className="absolute bottom-0 left-0 right-0 p-12 text-white">
           <div className="max-w-md">
-            <h3 className="text-3xl font-bold italic mb-6">"Proses booking sangat cepat dan tim support sangat responsif. Pengalaman luar biasa!"</h3>
+            <h3 className="text-3xl font-bold italic mb-6">&quot;Proses booking sangat cepat dan tim support sangat responsif. Pengalaman luar biasa!&quot;</h3>
             <div className="flex items-center gap-4">
               <div className="h-12 w-12 rounded-full border-2 border-white/50 overflow-hidden">
                 <Image

@@ -54,7 +54,7 @@ export default function Testimonials({ reviews = [] }: { reviews?: Review[] }) {
                         ))}
                       </div>
                       <p className="text-lg font-medium leading-relaxed tracking-tight">
-                        "{review.content}"
+                        &quot;{review.content}&quot;
                       </p>
                     </div>
                     

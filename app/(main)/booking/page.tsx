@@ -55,8 +55,8 @@ export default function BookingFlow() {
   const [loading, setLoading] = useState(false);
   const [cars, setCars] = useState<any[]>([]);
   const [paymentMethod, setPaymentMethod] = useState<
-    "MIDTRANS" | "QRIS" | "BANK"
-  >("MIDTRANS");
+    "QRIS" | "BANK"
+  >("QRIS");
   const [showManualDetails, setShowManualDetails] = useState(false);
 
   useEffect(() => {
@@ -174,57 +174,7 @@ export default function BookingFlow() {
         return;
       }
 
-      if (paymentMethod === "MIDTRANS") {
-        const response = await fetch("/api/tokenizer", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            id: car?.id,
-            name: car?.name,
-            price: car?.pricePerDay,
-            quantity: totalDays,
-            customerDetails: {
-              name: booking.customerName,
-              email: booking.customerEmail || "customer@guest.drivekita.com",
-              phone: booking.customerPhone,
-            },
-          }),
-        });
-
-        const data = await response.json();
-
-        if (!response.ok) {
-          console.error("Tokenizer Error:", data);
-          toast.error(`Pembayaran Gagal: ${data.details || "Gagal membuat transaksi"}`);
-          return;
-        }
-
-        if (data.token) {
-          window.snap.pay(data.token, {
-            onSuccess: (result: any) => {
-              console.log("success", result);
-              nextStep();
-            },
-            onPending: (result: any) => {
-              console.log("pending", result);
-              nextStep();
-            },
-            onError: (result: any) => {
-              console.log("error", result);
-              toast.error("Pembayaran gagal");
-            },
-            onClose: () => {
-              console.log(
-                "customer closed the popup without finishing the payment",
-              );
-            },
-          });
-        }
-      } else {
-        setShowManualDetails(true);
-      }
+      setShowManualDetails(true);
     } catch (error) {
       console.error(error);
       toast.error("Terjadi kesalahan sistem");
@@ -281,7 +231,7 @@ export default function BookingFlow() {
           </h1>
           <p className="text-slate-500 max-w-lg mx-auto">
             Hanya beberapa langkah lagi sebelum Anda bisa menikmati armada
-            pilihan kami. Let's hit the road!
+            pilihan kami. Let&apos;s hit the road!
           </p>
         </div>
 
@@ -588,40 +538,6 @@ export default function BookingFlow() {
                     </h3>
 
                     <div className="space-y-4">
-                      <div
-                        className={cn(
-                          "p-6 rounded-3xl border-2 transition-all cursor-pointer flex items-center gap-6 group relative overflow-hidden",
-                          paymentMethod === "MIDTRANS"
-                            ? "border-primary bg-primary/5"
-                            : "border-slate-100 hover:border-slate-300",
-                        )}
-                        onClick={() => setPaymentMethod("MIDTRANS")}
-                      >
-                        <div
-                          className={cn(
-                            "h-14 w-14 rounded-2xl flex items-center justify-center transition-colors",
-                            paymentMethod === "MIDTRANS"
-                              ? "bg-primary text-white"
-                              : "bg-slate-100 text-slate-400 group-hover:bg-slate-200",
-                          )}
-                        >
-                          <CreditCard className="h-7 w-7" />
-                        </div>
-                        <div className="space-y-1">
-                          <h4 className="font-black text-lg">
-                            Pembayaran Otomatis
-                          </h4>
-                          <p className="text-sm text-slate-500">
-                            ATM, Kartu Kredit, GOPAY, ShopeePay, dll via
-                            Midtrans
-                          </p>
-                        </div>
-                        {paymentMethod === "MIDTRANS" && (
-                          <div className="absolute top-4 right-4 h-6 w-6 bg-primary rounded-full flex items-center justify-center">
-                            <Check className="h-4 w-4 text-white" />
-                          </div>
-                        )}
-                      </div>
 
                       <div
                         className={cn(
@@ -701,9 +617,7 @@ export default function BookingFlow() {
                       >
                         {loading
                           ? "Memproses..."
-                          : paymentMethod === "MIDTRANS"
-                            ? "Bayar Sekarang"
-                            : "Lihat Detail Bayar"}
+                          : "Lihat Detail Bayar"}
                       </Button>
                       <Button
                         variant="ghost"
@@ -971,9 +885,7 @@ export default function BookingFlow() {
                       Metode
                     </p>
                     <p className="font-bold underline">
-                      {paymentMethod === "MIDTRANS"
-                        ? "Otomatis"
-                        : paymentMethod}
+                      {paymentMethod}
                     </p>
                   </div>
                   <div>

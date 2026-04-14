@@ -81,7 +81,7 @@ export default async function PembayaranPage() {
                     </div>
                   </TableCell>
                   <TableCell>{payment.booking.car.name}</TableCell>
-                  <TableCell className="capitalize">{payment.method || "Midtrans"}</TableCell>
+                  <TableCell className="capitalize">{payment.method || "Bank Transfer"}</TableCell>
                   <TableCell className="font-semibold">
                     Rp {payment.amount.toLocaleString("id-ID")}
                   </TableCell>

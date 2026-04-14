@@ -128,8 +128,8 @@ model Payment {
   amount        Float
   status        String   // e.g., "pending", "success", "failed"
   method        String?
-  orderId       String   @unique // Midtrans Order ID
-  transactionId String?  @unique // Midtrans Transaction ID
+  orderId       String   @unique
+  transactionId String?  @unique
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }
